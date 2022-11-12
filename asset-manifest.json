@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Jaro233/Interactive-comments-section/static/css/main.1ea130af.css",
+    "main.js": "/Jaro233/Interactive-comments-section/static/js/main.80ea5bd4.js",
+    "static/js/787.ba7a5089.chunk.js": "/Jaro233/Interactive-comments-section/static/js/787.ba7a5089.chunk.js",
+    "index.html": "/Jaro233/Interactive-comments-section/index.html",
+    "main.1ea130af.css.map": "/Jaro233/Interactive-comments-section/static/css/main.1ea130af.css.map",
+    "main.80ea5bd4.js.map": "/Jaro233/Interactive-comments-section/static/js/main.80ea5bd4.js.map",
+    "787.ba7a5089.chunk.js.map": "/Jaro233/Interactive-comments-section/static/js/787.ba7a5089.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1ea130af.css",
+    "static/js/main.80ea5bd4.js"
+  ]
+}
