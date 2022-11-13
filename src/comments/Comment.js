@@ -3,6 +3,7 @@ import CommentForm from "./CommentForm";
 import CommentEditForm from "./CommentEditForm";
 import { useState } from "react";
 
+
 const Comment = ({comment, replies, currentUserId, deleteComment, updateComment, activeComment, addComment, setActiveComment, parentId = null, upVoteScore, downVoteScore}) => {
     // console.log('curre', currentUserId)
 
@@ -34,32 +35,32 @@ const Comment = ({comment, replies, currentUserId, deleteComment, updateComment,
       {!isEditing && (
       <div className="comment container" >
         <div className="comment-score">
-          <img src="./images/icon-plus.svg" alt="plus" className="score-control score-plus" onClick={() => upVoteScore(comment.score, comment.id)}/>
+          <img src={`${process.env.PUBLIC_URL}/images/icon-plus.svg`} alt="plus" className="score-control score-plus" onClick={() => upVoteScore(comment.score, comment.id)}/>
           <p className="score-number">{comment.score}</p>
-          <img src="./images/icon-minus.svg" alt="minus" className="score-control score-minus" onClick={() => downVoteScore(comment.score, comment.id)}/>
+          <img src={`${process.env.PUBLIC_URL}/images/icon-minus.svg`} alt="minus" className="score-control score-minus" onClick={() => downVoteScore(comment.score, comment.id)}/>
         </div>
         <div className="comment-controls">
           {canDelete && 
           <div className="delete" onClick={() => deleteComment(comment.id)}>
-            <img src="./images/icon-delete.svg" alt="delete" className="control-icon" />
+            <img src={`${process.env.PUBLIC_URL}/images/icon-delete.svg`} alt="delete" className="control-icon" />
             Delete
           </div>
           }
           {canEdit &&
           <div className="edit" onClick={() => setActiveComment({id: comment.id, type: "editing"})}>
-            <img src="./images/icon-edit.svg" alt="edit" className="control-icon" onClick={() => renderEditForm()}/>
+            <img src={`${process.env.PUBLIC_URL}/images/icon-edit.svg`} alt="edit" className="control-icon" onClick={() => renderEditForm()}/>
             Edit
           </div>
           }
           {canReply &&
           <div className="reply" onClick={() => setActiveComment({id: comment.id, type: "replying"})}>
-            <img src="./images/icon-reply.svg" alt="reply" className="control-icon"/>
+            <img src={`${process.env.PUBLIC_URL}/images/icon-reply.svg`} alt="reply" className="control-icon"/>
             Reply
           </div>
           }
         </div>
         <div className="comment-user">
-          <img src={comment.user.image.png} alt="user" className="user-img"/>
+          <img src={`${process.env.PUBLIC_URL}/images/avatars/${comment.user.image.png}`} alt="user" className="user-img"/>
           {comment.user.userId == 1 && (
             <p className="user-name current-user">{comment.user.username}</p>
           )}
@@ -90,32 +91,32 @@ const Comment = ({comment, replies, currentUserId, deleteComment, updateComment,
       {isEditing && (
       <div className="comment-editing container" >
         <div className="comment-score">
-          <img src="./images/icon-plus.svg" alt="plus" className="score-control score-plus" onClick={() => upVoteScore(comment.score, comment.id)}/>
+        <img src={`${process.env.PUBLIC_URL}/images/icon-plus.svg`} alt="plus" className="score-control score-plus" onClick={() => upVoteScore(comment.score, comment.id)}/>
           <p className="score-number">{comment.score}</p>
-          <img src="./images/icon-minus.svg" alt="minus" className="score-control score-minus" onClick={() => downVoteScore(comment.score, comment.id)}/>
+          <img src={`${process.env.PUBLIC_URL}/images/icon-minus.svg`} alt="minus" className="score-control score-minus" onClick={() => downVoteScore(comment.score, comment.id)}/>
         </div>
         <div className="comment-controls">
-          {canDelete && 
+        {canDelete && 
           <div className="delete" onClick={() => deleteComment(comment.id)}>
-            <img src="./images/icon-delete.svg" alt="delete" className="control-icon" />
+            <img src={`${process.env.PUBLIC_URL}/images/icon-delete.svg`} alt="delete" className="control-icon" />
             Delete
           </div>
           }
           {canEdit &&
           <div className="edit" onClick={() => setActiveComment({id: comment.id, type: "editing"})}>
-            <img src="./images/icon-edit.svg" alt="edit" className="control-icon" onClick={() => renderEditForm()}/>
+            <img src={`${process.env.PUBLIC_URL}/images/icon-edit.svg`} alt="edit" className="control-icon" onClick={() => renderEditForm()}/>
             Edit
           </div>
           }
           {canReply &&
           <div className="reply" onClick={() => setActiveComment({id: comment.id, type: "replying"})}>
-            <img src="./images/icon-reply.svg" alt="reply" className="control-icon"/>
+            <img src={`${process.env.PUBLIC_URL}/images/icon-reply.svg`} alt="reply" className="control-icon"/>
             Reply
           </div>
           }
         </div>
         <div className="comment-user">
-          <img src={comment.user.image.png} alt="user" className="user-img"/>
+          <img src={`${process.env.PUBLIC_URL}/images/avatars/${comment.user.image.png}`} alt="user" className="user-img"/>
           {comment.user.userId == 1 && (
             <p className="user-name current-user">{comment.user.username}</p>
           )}

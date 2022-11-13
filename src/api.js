@@ -9,8 +9,8 @@ export const getComments = async () => {
             "user": {
               "userId": 2, 
               "image": { 
-                "png": "images/avatars/image-amyrobson.png",
-                "webp": "./images/avatars/image-amyrobson.webp"
+                "png": "image-amyrobson.png",
+                "webp": "image-amyrobson.webp"
               },
               "username": "amyrobson"
             }
@@ -24,8 +24,8 @@ export const getComments = async () => {
             "user": {
                 "userId": 3, 
               "image": { 
-                "png": "images/avatars/image-maxblagun.png",
-                "webp": "./images/avatars/image-maxblagun.webp"
+                "png": "image-maxblagun.png",
+                "webp": "image-maxblagun.webp"
               },
               "username": "maxblagun"
             }
@@ -40,8 +40,8 @@ export const getComments = async () => {
             "user": {
                 "userId": 4, 
                 "image": { 
-                "png": "images/avatars/image-ramsesmiron.png",
-                "webp": "./images/avatars/image-ramsesmiron.webp"
+                "png": "image-ramsesmiron.png",
+                "webp": "image-ramsesmiron.webp"
                 },
                 "username": "ramsesmiron"
             }
@@ -56,8 +56,8 @@ export const getComments = async () => {
             "user": {
                 "userId": 1, 
               "image": { 
-                "png": "images/avatars/image-juliusomo.png",
-                "webp": "./images/avatars/image-juliusomo.webp"
+                "png": "image-juliusomo.png",
+                "webp": "image-juliusomo.webp"
               },
               "username": "juliusomo"
             }
@@ -76,8 +76,8 @@ export const createComment = async (text, parentId = null, replyingTo = null) =>
     "user": {
       "userId": 1, 
       "image": { 
-        "png": "images/avatars/image-juliusomo.png",
-        "webp": "./images/avatars/image-juliusomo.webp"
+        "png": "image-juliusomo.png",
+        "webp": "image-juliusomo.webp"
       },
       "username": "juliusomo"
     }

@@ -18,7 +18,7 @@ const CommentForm = ({username, handleSubmit, submitLabel, hasCancelButton = fal
   
     return (
       <form onSubmit={onSubmit} className="reply-input container">
-        <img src="./images/avatars/image-juliusomo.png" alt="user" className="user-img"/>
+        <img src="/Interactive-comments-section/images/avatars/image-juliusomo.png" alt="user" className="user-img"/>
         <textarea value={text} onChange={(e) => setText(e.target.value)} className="comment-input" placeholder="Add a comment..."></textarea>
         <button className="btn-primary" disabled={isTextareaDisabled}>{submitLabel}</button>
         {hasCancelButton && (

@@ -11,12 +11,23 @@ import CommentForm from "./CommentForm";
 import CommentEditForm from "./CommentEditForm";
 
 const Comments = ({currentUserId}) => {
-    const [backendComments, setBackendComments] = useState([])
+    let commentsInStorage;
+
+    const [backendComments, setBackendComments] = useState(() => {
+      const storageComments = localStorage.getItem("backendComments");
+      const parsedComments = JSON.parse(storageComments);
+      commentsInStorage = JSON.parse(storageComments);
+      return parsedComments || [] ;
+    })
+
+    
+    
+    console.log('backendComments', backendComments)
     const [activeComment, setActiveComment] = useState(null)
     const rootComments = backendComments.filter((backendComment) => 
     backendComment.parentId === null)
     
-    console.log('backendComments', backendComments)
+    
 
     const getReplies = (commentId) => {
       return backendComments.filter((backendComment) => backendComment.parentId === commentId)
@@ -26,6 +37,7 @@ const Comments = ({currentUserId}) => {
       console.log(text, parentId, replyingTo)
       createCommentApi(text, parentId, replyingTo).then(comment => {
         setBackendComments([...backendComments, comment])
+        localStorage.setItem('backendComments', JSON.stringify([...backendComments, comment]));
         setActiveComment(null)
       })
     }
@@ -42,6 +54,7 @@ const Comments = ({currentUserId}) => {
           backendComment.id !== commentId
           )
           setBackendComments(updatedBackendComments)
+          localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
         })
       })
       noButton.addEventListener("click", () => {
@@ -58,6 +71,7 @@ const Comments = ({currentUserId}) => {
           return backendComment
         })
         setBackendComments(updatedBackendComments)
+        localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
         setActiveComment(null)
       })
     }
@@ -73,6 +87,7 @@ const Comments = ({currentUserId}) => {
           return backendComment
         })
         setBackendComments(updatedBackendComments)
+        localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
       })
     }
 
@@ -90,16 +105,22 @@ const Comments = ({currentUserId}) => {
           return backendComment
         })
         setBackendComments(updatedBackendComments)
+        localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
         setActiveComment(null)
       })
 
     }
 
+  
     useEffect(() => {
+      if(!commentsInStorage) {
         getCommentsApi().then(data => {
-            setBackendComments(data)
+          setBackendComments(data)
         })
-    }, [])
+      }
+  }, [])
+    
+
     return (
       <div className="comment-section">
         <div className="comments-wrapper">
