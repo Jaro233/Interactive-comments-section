@@ -22,7 +22,7 @@ const Comment = ({comment, replies, currentUserId, deleteComment, updateComment,
     const isReplying = activeComment && activeComment.type === "replying" && activeComment.id === comment.id
     const isEditing = activeComment && activeComment.type === "editing" && activeComment.id === comment.id
     const replyId = parentId ? parentId : comment.id
-
+    const createdAt = new Date(comment.createdAt).toLocaleDateString()
 
     // removing user tag from comment text
     const commentContent = comment.content.replace("@" + comment.replyingTo + ",", "")
@@ -67,7 +67,7 @@ const Comment = ({comment, replies, currentUserId, deleteComment, updateComment,
           {comment.user.userId != 1 && (
             <p className="user-name">{comment.user.username}</p>
           )}
-          <p className="comment-at">{comment.createdAt}</p>
+          <p className="comment-at">{createdAt}</p>
         </div>
         {/* <p className="comment-text"> */}
           
