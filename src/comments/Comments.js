@@ -10,24 +10,28 @@ import Comment from "./Comment";
 import CommentForm from "./CommentForm";
 import CommentEditForm from "./CommentEditForm";
 
+import {db} from '../firebase'
+import {collection, addDoc, deleteDoc, documentId, doc, getDoc, updateDoc, Timestamp, query, onSnapshot} from 'firebase/firestore'
+
+
 const Comments = ({currentUserId}) => {
-    let commentsInStorage;
-
-    const [backendComments, setBackendComments] = useState(() => {
-      const storageComments = localStorage.getItem("backendComments");
-      const parsedComments = JSON.parse(storageComments);
-      commentsInStorage = JSON.parse(storageComments);
-      return parsedComments || [] ;
-    })
-
-    
+    const [backendComments, setBackendComments] = useState([]) 
     
     console.log('backendComments', backendComments)
     const [activeComment, setActiveComment] = useState(null)
     const rootComments = backendComments.filter((backendComment) => 
     backendComment.parentId === null)
-    
-    
+
+    let commentsInDatabase;
+    const getDocuments = async () => {
+       
+      const docRef = doc(db,'backendComments', 'backendComments')
+      const docSnap = await getDoc(docRef);
+      console.log('docSnap', docSnap.data().backendComments)
+      setBackendComments(docSnap.data().backendComments)
+      commentsInDatabase = 1;
+      console.log('commentsInDatabase', commentsInDatabase)
+    }
 
     const getReplies = (commentId) => {
       return backendComments.filter((backendComment) => backendComment.parentId === commentId)
@@ -37,7 +41,11 @@ const Comments = ({currentUserId}) => {
       console.log(text, parentId, replyingTo)
       createCommentApi(text, parentId, replyingTo).then(comment => {
         setBackendComments([...backendComments, comment])
-        localStorage.setItem('backendComments', JSON.stringify([...backendComments, comment]));
+        const docRef = doc(db,'backendComments', 'backendComments')
+        updateDoc(docRef,{
+          backendComments: [...backendComments, comment]
+        })
+        // localStorage.setItem('backendComments', JSON.stringify([...backendComments, comment]));
         setActiveComment(null)
       })
     }
@@ -54,7 +62,10 @@ const Comments = ({currentUserId}) => {
           backendComment.id !== commentId
           )
           setBackendComments(updatedBackendComments)
-          localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
+          const docRef = doc(db,'backendComments', 'backendComments')
+          updateDoc(docRef,{
+            backendComments: updatedBackendComments
+          })
         })
       })
       noButton.addEventListener("click", () => {
@@ -71,7 +82,10 @@ const Comments = ({currentUserId}) => {
           return backendComment
         })
         setBackendComments(updatedBackendComments)
-        localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
+        const docRef = doc(db,'backendComments', 'backendComments')
+        updateDoc(docRef,{
+          backendComments: updatedBackendComments
+        })
         setActiveComment(null)
       })
     }
@@ -87,7 +101,10 @@ const Comments = ({currentUserId}) => {
           return backendComment
         })
         setBackendComments(updatedBackendComments)
-        localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
+        const docRef = doc(db,'backendComments', 'backendComments')
+        updateDoc(docRef,{
+          backendComments: updatedBackendComments
+        })
       })
     }
 
@@ -105,7 +122,10 @@ const Comments = ({currentUserId}) => {
           return backendComment
         })
         setBackendComments(updatedBackendComments)
-        localStorage.setItem('backendComments', JSON.stringify(updatedBackendComments));
+        const docRef = doc(db,'backendComments', 'backendComments')
+        updateDoc(docRef,{
+          backendComments: updatedBackendComments
+        })
         setActiveComment(null)
       })
 
@@ -113,12 +133,25 @@ const Comments = ({currentUserId}) => {
 
   
     useEffect(() => {
-      if(!commentsInStorage) {
+      // commentsInDatabase = 0
+      getDocuments();
+      console.log('commentsInDatabase', commentsInDatabase)
+      console.log('backendComments', backendComments.length)
+      if(commentsInDatabase == 0 && backendComments.length == 0) {
         getCommentsApi().then(data => {
           setBackendComments(data)
+          const docRef = doc(db,'backendComments', 'backendComments')
+          updateDoc(docRef,{
+            backendComments: data
+          })
         })
+        commentsInDatabase += 1
       }
-  }, [])
+
+      
+      
+  })
+      
     
 
     return (
